@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Start!</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="wrap">
+        <section id="left_menu">
+        </section>
+        <section id="main">
+            <div id="game_container">
+                <div id="game_screen">
+                    <p id="game_start_text">아래 입력칸에 '시작'을 입력하여 게임을 시작하세요!</p>
+                </div>
+
+                <div id="inputContents">
+                    <div id="inputText">
+                        <input type="text" id="tajaText" style="width: 100%; height: 40px; font-size: 20px;" />
+                    </div>
+                    <div id="inputBtn">
+                        <button id="tajaBtn" style="width: 100%; height: 45px; font-size: 20px;">ENTER</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="right_menu"></section>
+    </div>
+    
+    <script>
+        document.getElementById("tajaBtn").addEventListener("click", function () {
+            handleInput();
+        });
+
+        document.getElementById("tajaText").addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                handleInput();
+            }
+        });
+
+        function handleInput() {
+            var inputText = document.getElementById("tajaText").value;
+            if (inputText === '시작') {
+                window.location.href = '1_Black.html';
+            }
+        }
+    </script>
+</body>
+</html>

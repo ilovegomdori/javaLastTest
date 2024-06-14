@@ -1,0 +1,193 @@
+@font-face {
+    font-family: 'DungGeunMo';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: #222;
+    color: #fff;
+    font-family: 'DungGeunMo', Arial, sans-serif; /* 폰트를 둥근모꼴로 변경 */
+    overflow: hidden;
+}
+ul {
+    list-style: none;
+}
+.clear {
+    clear: both;
+}
+#wrap {
+    width: 75vw; /* 전체 화면을 4:3 비율로 설정 */
+    height: 100vh;
+    margin: auto; /* 가운데 정렬 */
+    display: grid;
+    grid-template-columns: 20% 60% 20%; /* 좌우 메뉴와 중앙 게임 화면 비율 설정 */
+    grid-template-rows: 1fr;
+}
+
+/* 좌우 레이아웃 */
+#left_menu, #right_menu {
+    background-color: #bc9370;
+    box-shadow: inset 0 0 10px #8d6b4e;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; 플렉스나 그리드에서 세로 중앙정렬 시키는 거 */
+    padding-top: 10%;
+    align-items: center;
+}
+#inventory_array_bottom{
+    padding-top: 280%;
+}
+
+.heart {
+    background-image: url('img/꽉찬하트.png');
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+}
+
+.inventory {
+    background-image: url('img/인벤토리.png');
+    background-repeat: no-repeat;
+    width: 45px;
+    height: 45px;
+    background-size: contain;
+    margin: 1px;
+}
+
+#inventory_mushroom1 {
+    background-image: url('img/인벤토리_버섯주황.png');
+    background-repeat: no-repeat;
+    width: 45px;
+    height: 45px;
+    background-size: contain;
+    margin: 1px;
+}
+#inventory_mushroom2 {
+    background-image: url('img/인벤토리_버섯초록.png');
+    background-repeat: no-repeat;
+    width: 45px;
+    height: 45px;
+    background-size: contain;
+    margin: 1px;
+}
+#inventory_mushroom3 {
+    background-image: url('img/인벤토리_버섯파랑.png');
+    background-repeat: no-repeat;
+    width: 45px;
+    height: 45px;
+    background-size: contain;
+    margin: 1px;
+}
+
+#inventory_potion1 {
+    background-image: url('img/인벤토리_빨강.png');
+    background-repeat: no-repeat;
+    width: 45px;
+    height: 45px;
+    background-size: contain;
+    margin: 1px;
+}
+#inventory_potion2 {
+    background-image: url('img/인벤토리_주황.png');
+    background-repeat: no-repeat;
+    width: 45px;
+    height: 45px;
+    background-size: contain;
+    margin: 1px;
+}
+#inventory_potion3 {
+    background-image: url('img/인벤토리_하양.png');
+    background-repeat: no-repeat;
+    width: 45px;
+    height: 45px;
+    background-size: contain;
+    margin: 1px;
+}
+#inventory_potion4 {
+    background-image: url('img/인벤토리_파랑.png');
+    background-repeat: no-repeat;
+    width: 45px;
+    height: 45px;
+    background-size: contain;
+    margin: 1px;
+}
+
+#left_menu_heart ul, #right_menu_inventory ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#left_menu_heart ul {
+    gap: 10px;
+}
+
+#main {
+    display: flex;
+    flex-direction: column; /* 세로 정렬로 변경 */
+    justify-content: center;
+    align-items: center;
+    background-color: #8d6b4e;
+    width: 100%;
+    height: 100%;
+}
+
+#game_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#game_screen {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 650px;
+    max-height: 650px;
+    aspect-ratio: 1 / 1; /* 정사각형을 유지하기 위해 추가 */
+    background-image: url("img/bg_field.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: 2px solid black;
+}
+
+#tajaContents {
+    position: relative;
+    width: 650px;
+    height: 100%;
+}
+
+#inputContents {
+    width: 650px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 2px solid black;
+}
+
+#inputText {
+    width: 80%;
+    height: 100%;
+}
+
+#inputBtn {
+    width: 20%;
+    height: 100%;
+}
+
+input, button {
+    width: 100%;
+    height: 100%;
+    font-size: 1.2em;
+    font-family: 'DungGeunMo', Arial, sans-serif; /* 폰트를 둥근모꼴로 변경 */
+}

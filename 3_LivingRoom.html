@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3_LivingRoom</title>
+    <link rel="stylesheet" href="3_LivingRoom.css">
+</head>
+<body>
+    <div id="wrap">
+        <section id="left_menu">
+            <div id="left_menu_heart">
+                <ul id="heart_array">
+                    <li class="heart"></li>
+                    <li class="heart"></li>
+                    <li class="heart"></li>
+                    <li class="heart"></li>
+                    <li class="heart"></li>
+                </ul>
+            </div>
+        </section>
+        <section id="main">
+            <div id="game_container">
+                <div id="game_screen">
+                    <div id="dialog_area">
+                        <img id="dialog" src="./img/대화창_엄마.png"></img>
+                        <p id="dialog_text"></p>
+                    </div>
+
+                    <div class="player" data-direction="down" data-walking="false"></div>
+                    <div id="coordinates">X: 0, Y: 0</div>
+                </div>
+                <div id="inputContents">
+                    <div id="inputText">
+                        <input type="text" id="tajaText" style="width: 100%; height: 40px; font-size: 20px;" />
+                    </div>
+                    <div id="inputBtn">
+                        <button id="tajaBtn" style="width: 100%; height: 45px; font-size: 20px;">ENTER</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="right_menu">
+            <div id="right_menu_inventory">
+                <ul id="inventory_array">
+                    <li class="inventory"></li>
+                    <li class="inventory"></li>
+                    <li class="inventory"></li>
+                    <li class="inventory"></li>
+                </ul>
+                
+                <div class="clear"></div>
+                
+                <ul id="inventory_array">
+                    <li class="inventory"></li>
+                    <li class="inventory"></li>
+                    <li class="inventory"></li>
+                    <li class="inventory"></li>
+                </ul>
+            </div>
+            <div id="right_menu_inventory">
+                <ul id="inventory_array_bottom">
+                    <li id="inventory_potion1"></li>
+                    <li id="inventory_potion2"></li>
+                    <li id="inventory_potion3"></li>
+                    <li id="inventory_potion4"></li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    <script src="3_LivingRoom.js"></script>
+</body>
+</html>

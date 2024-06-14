@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14_End</title>
+
+    <style>
+        @font-face {
+            font-family: 'DungGeunMo';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            background-color: #222;
+            color: #fff;
+            font-family: 'DungGeunMo', Arial, sans-serif; /* 폰트를 둥근모꼴로 변경 */
+            overflow: hidden;
+        }
+        ul {
+            list-style: none;
+        }
+        .clear {
+            clear: both;
+        }
+        #wrap {
+            width: 75vw; /* 전체 화면을 4:3 비율로 설정 */
+            height: 100vh;
+            margin: auto; /* 가운데 정렬 */
+            display: grid;
+            grid-template-columns: 20% 60% 20%; /* 좌우 메뉴와 중앙 게임 화면 비율 설정 */
+            grid-template-rows: 1fr;
+        }
+
+        /* 좌우 레이아웃 */
+        #left_menu, #right_menu {
+            background-color: #bc9370;
+            box-shadow: inset 0 0 10px #8d6b4e;
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center; 플렉스나 그리드에서 세로 중앙정렬 시키는 거 */
+            padding-top: 10%;
+            align-items: center;
+        }
+
+
+        #main {
+            display: flex;
+            flex-direction: column; /* 세로 정렬로 변경 */
+            justify-content: center;
+            align-items: center;
+            background-color: #8d6b4e;
+            width: 100%;
+            height: 100%;
+        }
+
+        #game_container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #game_screen {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-width: 650px;
+            max-height: 650px;
+            aspect-ratio: 1 / 1; /* 정사각형을 유지하기 위해 추가 */
+            background-image: url("img/bg_field_bald_Clear.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            border: 2px solid black;
+        }
+
+        @keyframes blink-effect {
+            50% {
+            opacity: 0;
+            }
+        }
+
+
+        #game_start_text {
+            position: absolute;
+            top: 95%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: white;
+            font-size: 1.2rem;
+            white-space: nowrap; /* 줄 바꿈을 막는 녀석 */
+
+            animation: blink-effect 1.5s step-end infinite;
+
+        }
+
+        #inputContents {
+            width: 650px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-top: 2px solid black;
+        }
+
+        #inputText {
+            width: 80%;
+            height: 100%;
+        }
+
+        #inputBtn {
+            width: 20%;
+            height: 100%;
+        }
+
+        input, button {
+            width: 100%;
+            height: 100%;
+            font-size: 1.2em;
+            font-family: 'DungGeunMo', Arial, sans-serif; /* 폰트를 둥근모꼴로 변경 */
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <section id="left_menu">
+        </section>
+        <section id="main">
+            <div id="game_container">
+                <div id="game_screen">
+                    <p id="game_start_text">아래 입력칸에 '재시작'을 입력하면 다시 플레이할 수 있습니다!</p>
+                </div>
+
+                <div id="inputContents">
+                    <div id="inputText">
+                        <input type="text" id="tajaText" style="width: 100%; height: 40px; font-size: 20px;" />
+                    </div>
+                    <div id="inputBtn">
+                        <button id="tajaBtn" style="width: 100%; height: 45px; font-size: 20px;">ENTER</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="right_menu"></section>
+    </div>
+    
+    <script>
+        document.getElementById("tajaBtn").addEventListener("click", function () {
+            handleInput();
+        });
+
+        document.getElementById("tajaText").addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                handleInput();
+            }
+        });
+
+        function handleInput() {
+            var inputText = document.getElementById("tajaText").value;
+            if (inputText === '재시작') {
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>

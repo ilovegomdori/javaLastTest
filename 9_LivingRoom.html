@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9_LivingRoom</title>
+
+    <style>
+        @font-face {
+            font-family: 'DungGeunMo';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            background-color: #222;
+            color: #fff;
+            font-family: 'DungGeunMo', Arial, sans-serif; /* 폰트를 둥근모꼴로 변경 */
+            overflow: hidden;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        #wrap {
+            width: 75vw; /* 전체 화면을 4:3 비율로 설정 */
+            height: 100vh;
+            margin: auto; /* 가운데 정렬 */
+            display: grid;
+            grid-template-columns: 20% 60% 20%; /* 좌우 메뉴와 중앙 게임 화면 비율 설정 */
+            grid-template-rows: 1fr;
+        }
+
+        #inventory_array_bottom{
+            padding-top: 280%;
+        }
+
+        .heart {
+            background-image: url('img/꽉찬하트.png');
+            background-repeat: no-repeat;
+            width: 30px;
+            height: 30px;
+            background-size: contain;
+        }
+
+        .inventory {
+            background-image: url('img/인벤토리.png');
+            background-repeat: no-repeat;
+            width: 45px;
+            height: 45px;
+            background-size: contain;
+            margin: 1px;
+        }
+        #inventory_mushroom1 {
+            background-image: url('img/인벤토리_버섯주황.png');
+            background-repeat: no-repeat;
+            width: 45px;
+            height: 45px;
+            background-size: contain;
+            margin: 1px;
+        }
+        #inventory_mushroom2 {
+            background-image: url('img/인벤토리_버섯초록.png');
+            background-repeat: no-repeat;
+            width: 45px;
+            height: 45px;
+            background-size: contain;
+            margin: 1px;
+        }
+        #inventory_mushroom3 {
+            background-image: url('img/인벤토리_버섯파랑.png');
+            background-repeat: no-repeat;
+            width: 45px;
+            height: 45px;
+            background-size: contain;
+            margin: 1px;
+        }
+
+        #inventory_potion1 {
+            background-image: url('img/인벤토리_빨강.png');
+            background-repeat: no-repeat;
+            width: 45px;
+            height: 45px;
+            background-size: contain;
+            margin: 1px;
+        }
+        #inventory_potion2 {
+            background-image: url('img/인벤토리_주황.png');
+            background-repeat: no-repeat;
+            width: 45px;
+            height: 45px;
+            background-size: contain;
+            margin: 1px;
+        }
+        #inventory_potion3 {
+            background-image: url('img/인벤토리_하양.png');
+            background-repeat: no-repeat;
+            width: 45px;
+            height: 45px;
+            background-size: contain;
+            margin: 1px;
+        }
+        #inventory_potion4 {
+            background-image: url('img/인벤토리_파랑.png');
+            background-repeat: no-repeat;
+            width: 45px;
+            height: 45px;
+            background-size: contain;
+            margin: 1px;
+        }
+
+        #left_menu_heart ul, #right_menu_inventory ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        #left_menu_heart ul {
+            gap: 10px;
+        }
+
+
+        /* 좌우 레이아웃 */
+        #left_menu, #right_menu {
+            background-color: #bc9370;
+            box-shadow: inset 0 0 10px #8d6b4e;
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center; 플렉스나 그리드에서 세로 중앙정렬 시키는 거 */
+            padding-top: 10%;
+            align-items: center;
+        }
+
+        #main {
+            display: flex;
+            flex-direction: column; /* 세로 정렬로 변경 */
+            justify-content: center;
+            align-items: center;
+            background-color: #8d6b4e;
+            width: 100%;
+            height: 100%;
+        }
+
+        #game_container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #game_screen {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-width: 650px;
+            max-height: 650px;
+            aspect-ratio: 1 / 1; /* 정사각형을 유지하기 위해 추가 */
+            background-image: url("img/bg_room_main_1.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            border: 2px solid black;
+        }
+
+        #dialog {
+            float: left;
+            margin-left: -60px;
+            margin-top: 380px;
+            width: 710px;
+            height: auto;
+            display: none;
+        }
+
+        #dialog_text {
+            position: absolute;
+            top: 82%;
+            left: 30%;
+            text-align: left;
+            font-size: 1.5em;
+            color: white;
+            display: none; /* 처음에는 보이지 않게 설정 */
+        }
+
+        #inputContents {
+            width: 650px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-top: 2px solid black;
+        }
+
+        #inputText {
+            width: 80%;
+            height: 100%;
+        }
+
+        #inputBtn {
+            width: 20%;
+            height: 100%;
+        }
+
+        input, button {
+            width: 100%;
+            height: 100%;
+            font-size: 1.2em;
+            font-family: 'DungGeunMo', Arial, sans-serif; /* 폰트를 둥근모꼴로 변경 */
+        }
+
+        .player {
+            position: absolute;
+            bottom: 20px; /* 캐릭터를 바닥에 위치 */
+            left: 50%;
+            transform: translateX(-50%);
+            background: url('img/MainCha.png') no-repeat;
+            width: 133.5px;
+            height: 133.5px;
+        }
+
+        .player[data-direction='left'] {
+            background-position:0 -133.5px;
+        }
+
+        .player[data-direction='right'] {
+            background-position:0 -267px;
+        }
+
+        .player[data-direction='up'] {
+            background-position:0 -400.5px;
+        }
+
+        .player[data-direction='down'] {
+            background-position:0 0;
+        }
+
+        .player[data-walking="true"] {
+            animation: walking 0.6s steps(4) infinite;
+        }
+
+        @keyframes walking {
+            from {
+                background-position-x: 0;
+            }
+            to {
+                background-position-x: -534px;
+            }
+        }
+
+        /* 좌표 표시 요소 */
+        #coordinates {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #444;
+            display: none;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div id="wrap">
+        <section id="left_menu">
+            <div id="left_menu_heart">
+                <ul id="heart_array">
+                    <li class="heart"></li>
+                    <li class="heart"></li>
+                    <li class="heart"></li>
+                    <li class="heart"></li>
+                    <li class="heart"></li>
+                </ul>
+            </div>
+        </section>
+        <section id="main">
+            <div id="game_container">
+                <div id="game_screen">
+                    <div id="dialog_area">
+                        <img id="dialog" src="./img/대화창_엄마.png"></img>
+                        <p id="dialog_text"></p>
+                    </div>
+
+                    <div class="player" data-direction="down" data-walking="false"></div>
+                    <div id="coordinates">X: 0, Y: 0</div> <!-- 좌표 표시 요소 -->
+                </div>
+                <div id="inputContents">
+                    <div id="inputText">
+                        <input type="text" id="tajaText" style="width: 100%; height: 40px; font-size: 20px;" />
+                    </div>
+                    <div id="inputBtn">
+                        <button id="tajaBtn" style="width: 100%; height: 45px; font-size: 20px;">ENTER</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="right_menu">
+            <div id="right_menu_inventory">
+                <ul id="inventory_array">
+                    <li id="inventory_mushroom1"></li>
+                    <li id="inventory_mushroom2"></li>
+                    <li id="inventory_mushroom3"></li>
+                    <li class="inventory"></li>
+                </ul>
+                
+                <div class="clear"></div>
+                
+                <ul id="inventory_array">
+                    <li class="inventory"></li>
+                    <li class="inventory"></li>
+                    <li class="inventory"></li>
+                    <li class="inventory"></li>
+                </ul>
+            </div>
+            <div id="right_menu_inventory">
+                <ul id="inventory_array_bottom">
+                    <li id="inventory_potion1"></li>
+                    <li id="inventory_potion2"></li>
+                    <li id="inventory_potion3"></li>
+                    <li id="inventory_potion4"></li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    <script>
+        var dialog;
+        var dialogText;
+        var dialogs2Shown = false; // 추가된 변수
+        var isdialogs2 = false; // dialogs2 활성화 상태 확인
+        var isdialogs3 = false; // dialogs3 활성화 상태 확인
+        var isdialogs4 = false; // dialogs4 활성화 상태 확인
+    
+        document.addEventListener("DOMContentLoaded", function() {
+            var dialogArea = document.getElementById("dialog_area");
+            dialog = document.getElementById("dialog");
+            dialogText = document.createElement("p");
+            dialogText.id = "dialog_text";
+            dialogText.innerText = "...어머 민정아!";
+            dialogArea.appendChild(dialogText);
+            
+            dialog.style.display = "none"; // 처음에는 대화창 숨기기
+            dialogText.style.display = "none"; // 처음에는 보이지 않게 설정
+    
+            // 스페이스바 또는 엔터를 눌렀을 때 대화 표시
+            document.addEventListener("keydown", function(event) {
+                if (event.key === " " || event.key === "Enter") {
+                    displayNextDialog();
+                }
+            });
+    
+            var dialogs = [
+                "이제 일어난 거니?",
+                "밖이 지금 난리도 아닌데 잘도 잤다!",
+                "경보도 울리고 아주 난리였는데\n 말야..."
+            ];
+            var dialogs2 = [
+                "...무슨 일이냐고?",
+                "갑자기 달팽이 개체수가 늘어나서\n 마을을 거의 점령했댄다.",
+                "워낙 약한 몬스터고,\n 문을 단단히 잠궈놨으니\n 큰 걱정은 없지만...",
+                "정말 이상한 일이지.\n 그동안 이런 일이 없었는데...",
+                "마당 앞도 달팽이 천지야.\n 어떻게 해결이 될런지.",
+                "⋯."
+            ];
+            var dialogs3 = [
+                "⋯네가 달팽이들을 처리하겠다고?",
+                "물론 네가 처리해준다면\n 안심이지만⋯.",
+                "감당하기 힘든 수일텐데... \n 정말 괜찮겠니?",
+            ];
+            var dialogs4 = [
+                "...그렇다면 마당으로 나가서\n 모든 달팽이를 처리해주겠니?",
+                "네가 있어 정말 든든하구나.\n",
+                "하지만... 부디 몸 조심하렴."
+            ];
+            var dialogIndex = 0;
+    
+            function displayNextDialog() {
+                if (isdialogs4) {
+                    if (dialogIndex < dialogs4.length) {
+                        dialogText.innerText = dialogs4[dialogIndex];
+                        dialogIndex++;
+                    } else {
+                        dialog.style.display = "none";
+                        dialogText.style.display = "none";
+                    }
+                } else if (isdialogs3) {
+                    if (dialogIndex < dialogs3.length) {
+                        dialogText.innerText = dialogs3[dialogIndex];
+                        dialogIndex++;
+                    } else {
+                        dialog.style.display = "none";
+                        dialogText.style.display = "none";
+                        setTimeout(function() {
+                            startdialogs4(); // 1초 후에 새로운 대화 시작
+                        }, 1000);
+                    }
+                } else if (isdialogs2) {
+                    if (dialogIndex < dialogs2.length) {
+                        dialogText.innerText = dialogs2[dialogIndex];
+                        dialogIndex++;
+                    } else {
+                        dialog.style.display = "none";
+                        dialogText.style.display = "none";
+                        setTimeout(function() {
+                            startdialogs3(); // 1초 후에 새로운 대화 시작
+                        }, 1000);
+                    }
+                } else {
+                    if (dialogIndex < dialogs.length) {
+                        dialogText.innerText = dialogs[dialogIndex];
+                        dialogIndex++;
+                    } else if (dialogIndex === dialogs.length) {
+                        dialog.style.display = "none";
+                        dialogText.style.display = "none";
+                        setTimeout(function() {
+                            startdialogs2(); // 2초 후에 새로운 대화 시작
+                        }, 1000);
+                    }
+                }
+            }
+    
+            function startdialogs2() {
+                dialogIndex = 0;
+                isdialogs2 = true;
+                dialog.style.display = "block";
+                dialogText.style.display = "block";
+                displayNextDialog();
+            }
+    
+            function startdialogs3() {
+                dialogIndex = 0;
+                isdialogs3 = true;
+                dialog.style.display = "block";
+                dialogText.style.display = "block";
+                displayNextDialog();
+            }
+    
+            function startdialogs4() {
+                dialogIndex = 0;
+                isdialogs4 = true;
+                dialog.style.display = "block";
+                dialogText.style.display = "block";
+                displayNextDialog();
+            }
+    
+            // ENTER 버튼 클릭 시 엔터 키 이벤트 트리거
+            var enterButton = document.getElementById("tajaBtn");
+            enterButton.addEventListener("click", function() {
+                var event = new KeyboardEvent('keydown', {'key': 'Enter'});
+                document.dispatchEvent(event);
+            });
+        });
+    
+        let player = document.querySelector('.player');
+        let map = document.querySelector('#game_screen');
+        let coordinates = document.querySelector('#coordinates');
+    
+        // 플레이어의 초기 위치 설정 (중앙, 바닥)
+        player.style.left = '88%';
+        player.style.bottom = '450px'; // 바닥에서 20px 위에 위치
+    
+        // 좌표 업데이트 함수
+        function updateCoordinates() {
+            let currentX = parseInt(getComputedStyle(player).left);
+            let currentY = parseInt(getComputedStyle(player).bottom);
+            coordinates.textContent = `X: ${currentX}, Y: ${currentY}`;
+            checkForDialog(currentX, currentY); // 대화창 표시 체크
+            checkForTransition(currentX, currentY); // 페이지 전환 체크
+        }
+    
+        // 초기 좌표 표시
+        updateCoordinates();
+    
+        // 키보드 이벤트 리스너 추가
+        document.addEventListener('keydown', (e) => {
+            let currentDirection = 'down';
+            let currentX = parseInt(getComputedStyle(player).left);
+            let currentY = parseInt(getComputedStyle(player).bottom);
+    
+            // 움직이는 거리 설정 (픽셀 단위)
+            let moveDistance = 20;
+    
+            // 이동 가능한 범위 설정
+            const MIN_X = 45;
+            const MAX_X = 615;
+            const MIN_Y = 0;
+            const MAX_Y = 420;
+    
+            if (e.key === 'ArrowLeft') {
+                currentDirection = 'left';
+                if (currentX - moveDistance >= MIN_X) {
+                    player.style.left = (currentX - moveDistance) + 'px';
+                }
+            } else if (e.key === 'ArrowRight') {
+                currentDirection = 'right';
+                if (currentX + moveDistance <= MAX_X) {
+                    player.style.left = (currentX + moveDistance) + 'px';
+                }
+            } else if (e.key === 'ArrowUp') {
+                currentDirection = 'up';
+                if (currentY + moveDistance <= MAX_Y) {
+                    player.style.bottom = (currentY + moveDistance) + 'px';
+                }
+            } else if (e.key === 'ArrowDown') {
+                currentDirection = 'down';
+                if (currentY - moveDistance >= MIN_Y) {
+                    player.style.bottom = (currentY - moveDistance) + 'px';
+                }
+            }
+    
+            player.dataset.direction = currentDirection;
+            player.dataset.walking = 'true';
+            updateCoordinates(); // 좌표 업데이트
+        });
+    
+        document.addEventListener('keyup', () => {
+            player.dataset.walking = 'false';
+        });
+    
+        document.getElementById("tajaBtn").addEventListener("click", function () {
+            handleInput();
+        });
+    
+        document.getElementById("tajaText").addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                handleInput();
+            }
+        });
+    
+        function checkForDialog(currentX, currentY) {
+            const TARGET_X_MIN = 292;
+            const TARGET_X_MAX = 352;
+            const TARGET_Y_MIN = 370;
+            const TARGET_Y_MAX = 410;
+    
+            if (currentX >= TARGET_X_MIN && currentX <= TARGET_X_MAX && currentY >= TARGET_Y_MIN && currentY <= TARGET_Y_MAX) {
+                dialog.style.display = "block";
+                dialogText.style.display = "block";
+                displayNextDialog(); // 대화 텍스트 표시
+            }
+        }
+    
+        function checkForTransition(currentX, currentY) {
+            const TARGET_X_MIN = 270;
+            const TARGET_X_MAX = 372;
+            const TARGET_Y_MIN = 10;
+            const TARGET_Y_MAX = 30;
+    
+            if (currentX >= TARGET_X_MIN && currentX <= TARGET_X_MAX && currentY >= TARGET_Y_MIN && currentY <= TARGET_Y_MAX) {
+                window.location.href = "10_SnailTaja.html";
+            }
+        }
+    </script>
+    
+</body>
+</html>
